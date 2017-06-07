@@ -1,7 +1,7 @@
 var exec = require('child_process').exec;
 var NUM_TO_FETCH = 50; // number of birds to get at a time, API max is 100
 var FETCH_TIMEOUT = 1; // in seconds
-var BIRD_COUNT = 164596; // number of birds in the mccaully library
+var BIRD_COUNT = NUM_TO_FETCH+1; // number of birds in the mccaully library, updated on first response
 var START_BIRD = 0;
 
 
@@ -28,6 +28,8 @@ function parseBirdJSON(dat, startCount) {
 
     var j = JSON.parse(dat);
     var i = startCount;
+
+    BIRD_COUNT = j.results.count;
 
     j.results.content.forEach( function(bird) {
 	    bird['commonName'] = bird['commonName'].replace('\"', '\'');
